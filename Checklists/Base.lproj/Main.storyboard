@@ -68,11 +68,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the Item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QAk-Uy-lcb">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the Item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QAk-Uy-lcb">
                                                     <rect key="frame" x="11" y="4" width="390" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="done" destination="4C1-Sx-yMk" eventType="editingDidEndOnExit" id="9WC-OZ-3Ha"/>
+                                                        <outlet property="delegate" destination="4C1-Sx-yMk" id="5km-Q6-lk5"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -94,7 +98,7 @@
                                 <action selector="cancel" destination="4C1-Sx-yMk" id="xpS-Xd-27C"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="pev-2A-hCx">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="pev-2A-hCx">
                             <connections>
                                 <action selector="done" destination="4C1-Sx-yMk" id="ru6-wu-bwh"/>
                             </connections>
@@ -102,6 +106,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="doneBarButton" destination="pev-2A-hCx" id="ow2-JQ-fKq"/>
                         <outlet property="textField" destination="QAk-Uy-lcb" id="gsd-Dh-j9e"/>
                     </connections>
                 </tableViewController>
