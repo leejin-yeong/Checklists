@@ -11,6 +11,7 @@ import UIKit
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(_ controller: AddItemViewController)//press cancel
     func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)//press done
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
@@ -20,9 +21,16 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     
     weak var delegate: AddItemViewControllerDelegate?
+    var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let itemToEdit = itemToEdit{
+            title = "Edit Item"
+            textField.text = itemToEdit.text
+            doneBarButton.isEnabled = true
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -43,12 +51,19 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         delegate?.addItemViewControllerDidCancel(self)
     }
     @IBAction func done(){
-      //  print("Contents fo the text field: \(textField.text!)")
+        print("Contents fo the text field: \(textField.text!)")
        // navigationController? .popViewController(animated: true)
-        let item = ChecklistItem()
-        item.text = textField.text!
-        item.checked = false
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        if let itemToEdit = itemToEdit{
+            itemToEdit.text = textField.text!
+            delegate?.addItemViewController(self, didFinishAdding: itemToEdit)
+        }else{
+            let item = ChecklistItem()
+            item.text = textField.text!
+            
+              delegate?.addItemViewController(self, didFinishAdding: item)
+        }
+     
+      
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
